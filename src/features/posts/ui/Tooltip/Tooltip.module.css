@@ -1,0 +1,27 @@
+.anchor {
+  /* Consumers override `display` (e.g. `block` + truncation) as needed. */
+  display: inline-block;
+  max-width: 100%;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 1000;
+  max-width: min(480px, calc(100vw - 16px));
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #111827;
+  color: #f9fafb;
+  font-size: 13px;
+  line-height: 1.4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  pointer-events: none;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* The global `mark` style assumes a light background — override for contrast. */
+.tooltip mark {
+  background: #fde047;
+  color: #111827;
+}
