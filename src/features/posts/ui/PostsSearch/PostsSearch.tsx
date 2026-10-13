@@ -4,16 +4,14 @@ import styles from './PostsSearch.module.css';
 interface PostsSearchProps {
   value: string;
   onChange: (next: string) => void;
-  resultCount: number;
-  totalCount: number;
 }
 
-export function PostsSearch({
-  value,
-  onChange,
-  resultCount,
-  totalCount,
-}: PostsSearchProps) {
+/**
+ * Controlled search input.
+ * Owns nothing but the text field — the result counter lives in the toolbar,
+ * where it can sit next to the refresh controls.
+ */
+export function PostsSearch({ value, onChange }: PostsSearchProps) {
   const inputId = useId();
 
   return (
@@ -31,9 +29,6 @@ export function PostsSearch({
         autoComplete="off"
         spellCheck={false}
       />
-      <span className={styles.counter}>
-        {resultCount} of {totalCount}
-      </span>
     </div>
   );
 }

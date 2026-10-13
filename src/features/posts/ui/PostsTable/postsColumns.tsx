@@ -1,33 +1,39 @@
 import type { ColumnDef } from '@tanstack/react-table';
+import { Tooltip } from '@/shared/ui/Tooltip/Tooltip';
 import type { Post } from '../../model/types';
 import { HighlightedText } from './HighlightedText';
 import styles from './PostsTable.module.css';
 
-/**
- * Builds the column definitions for the posts table.
- *
- * Widths are declared here (`size`) and consumed by PostsTable to
- * compose a CSS grid template. `size: 0` means "flexible" — the column
- * receives the remaining space.
- */
 export function createPostsColumns(query: string): ColumnDef<Post>[] {
   return [
     {
       accessorKey: 'id',
       header: 'ID',
       size: 80,
+      cell: ({ getValue }) => (
+        <span className={styles.numericCell}>{getValue<number>()}</span>
+      ),
     },
     {
       accessorKey: 'userId',
       header: 'User',
       size: 100,
+      cell: ({ getValue }) => (
+        <span className={styles.numericCell}>{getValue<number>()}</span>
+      ),
     },
     {
       accessorKey: 'title',
       header: 'Title',
-      size: 250,
+      size: 0,
       cell: ({ row }) => (
-        <HighlightedText text={row.original.title} query={query} />
+        <Tooltip
+          onlyWhenTruncated
+          className={styles.truncatedSingle}
+          content={<HighlightedText text={row.original.title} query={query} />}
+        >
+          <HighlightedText text={row.original.title} query={query} />
+        </Tooltip>
       ),
     },
     {
@@ -35,9 +41,13 @@ export function createPostsColumns(query: string): ColumnDef<Post>[] {
       header: 'Body',
       size: 0,
       cell: ({ row }) => (
-        <span className={styles.bodyText}>
+        <Tooltip
+          onlyWhenTruncated
+          className={styles.truncatedMultiline}
+          content={<HighlightedText text={row.original.body} query={query} />}
+        >
           <HighlightedText text={row.original.body} query={query} />
-        </span>
+        </Tooltip>
       ),
     },
   ];

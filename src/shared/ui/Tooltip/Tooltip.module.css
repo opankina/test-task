@@ -8,6 +8,11 @@
   position: fixed;
   z-index: 1000;
   max-width: min(480px, calc(100vw - 16px));
+  /* Cap by viewport so it never overflows the screen vertically. */
+  max-height: calc(100vh - 16px);
+  overflow-y: auto;
+  /* Scrollable: needs pointer events. */
+  pointer-events: auto;
   padding: 8px 12px;
   border-radius: 6px;
   background: #111827;
@@ -15,9 +20,22 @@
   font-size: 13px;
   line-height: 1.4;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
-  pointer-events: none;
   white-space: pre-wrap;
   word-break: break-word;
+  scrollbar-width: thin;
+}
+
+.tooltip::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tooltip::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+}
+
+.tooltip::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
 }
 
 /* The global `mark` style assumes a light background — override for contrast. */

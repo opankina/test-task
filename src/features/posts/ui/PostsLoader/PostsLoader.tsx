@@ -1,13 +1,10 @@
 import { Button } from '@/shared/ui/Button/Button';
-import type { PostsLoadState } from '../../model/types';
-import { ProgressBar } from './ProgressBar';
+import { ProgressBar } from '@/shared/ui/ProgressBar/ProgressBar';
+import type { FullScreenState } from '../../model/types';
 import styles from './PostsLoader.module.css';
 
-/** All load states except `success` — success is handled by PostsTable. */
-type LoadingState = Exclude<PostsLoadState, { status: 'success' }>;
-
 interface PostsLoaderProps {
-  state: LoadingState;
+  state: FullScreenState;
   onCancel: () => void;
   onRetry: () => void;
 }
@@ -15,13 +12,12 @@ interface PostsLoaderProps {
 export function PostsLoader({ state, onCancel, onRetry }: PostsLoaderProps) {
   switch (state.status) {
     case 'idle':
-      // Very brief: the hook auto-starts loading on mount.
       return <div className={styles.container} />;
 
     case 'loading':
       return (
         <div className={styles.container}>
-          <ProgressBar progress={state.progress} />
+          <ProgressBar progress={state.progress} className={styles.progressBar} />
           <Button variant="secondary" onClick={onCancel}>
             Cancel
           </Button>
@@ -31,9 +27,7 @@ export function PostsLoader({ state, onCancel, onRetry }: PostsLoaderProps) {
     case 'error':
       return (
         <div className={styles.container}>
-          <p className={styles.message}>
-            Failed to load posts: {state.message}
-          </p>
+          <p className={styles.message}>Failed to load posts: {state.message}</p>
           <Button onClick={onRetry}>Retry</Button>
         </div>
       );

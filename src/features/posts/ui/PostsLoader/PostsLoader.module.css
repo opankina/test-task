@@ -7,6 +7,11 @@
   gap: 16px;
 }
 
+.progressBar {
+  width: 100%;
+  max-width: 480px;
+}
+
 .message {
   margin: 0;
   font-size: 14px;
