@@ -1,10 +1,9 @@
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
-import typedCssModules from 'unplugin-typed-css-modules/vite';
 
 export default defineConfig({
-  plugins: [react(), typedCssModules()],
+  plugins: [react()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
